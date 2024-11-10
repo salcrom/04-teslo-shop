@@ -1,7 +1,7 @@
 // Página para que los administradores puedan entrar para crear productos y gestionar las ordernes de los clientes
 
 
-export default function() {
+export default function AdminPage() {
   return (
     <div>
       <h1>Admin Page</h1>
