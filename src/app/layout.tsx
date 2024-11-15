@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { geistMono, geistSans, inter } from "@/config/fonts";
 import "./globals.css";
+import { Provider } from "@/components";
 
 
 export const metadata: Metadata = {
@@ -12,15 +13,15 @@ export const metadata: Metadata = {
   description: "Una tienda virtual de productos",
 };
 
-export default function RootLayout({ children,}: Readonly<{
+export default function RootLayout({ children,}:{
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
