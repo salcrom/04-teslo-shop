@@ -1,9 +1,11 @@
 'use client';
 
+import { useEffect, useState } from "react";
+import clsx from "clsx";
+
+import { placeOrder } from "@/actions";
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
-import clsx from "clsx";
-import { useEffect, useState } from "react";
 
 
 
@@ -24,16 +26,17 @@ export const PlaceOrder = () => {
     const onPlaceOrder = async() => {
         setIsPlacingOrder(true);
         // await sleep(2);
-        const productsToOrde = cart.map( product => ({
+        const productsToOrder = cart.map( product => ({
             productId: product.id,
             quantity: product.quantity,
             size: product.size,
         }))
 
-        console.log({address, productsToOrde});
+        console.log({address, productsToOrder });
 
         // Todo: Server Action
-        
+       const resp = await placeOrder( productsToOrder, address );
+       console.log({resp});
 
         setIsPlacingOrder(false);
     }
@@ -59,7 +62,7 @@ export const PlaceOrder = () => {
             {/* Divider */}
             <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
 
-            <h2 className="text-2xl mb-2">Resumen de oren</h2>
+            <h2 className="text-2xl mb-2">Resumen de orden</h2>
 
             <div className="grid grid-cols-2">
 
