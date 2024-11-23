@@ -6,19 +6,19 @@ import { countries } from './seed-countries';
 
 async function main(){
     // 1. Borrar registros previos
-    await Promise.all([
-        prisma.orderAddress.deleteMany(),
-        prisma.orderItem.deleteMany(),
-        prisma.order.deleteMany(),
+    // await Promise.all([
+        await prisma.orderAddress.deleteMany();
+        await prisma.orderItem.deleteMany();
+        await prisma.order.deleteMany();
 
-        prisma.userAddress.deleteMany(),
-        prisma.user.deleteMany(),
-        prisma.country.deleteMany(),
+        await prisma.userAddress.deleteMany();
+        await prisma.user.deleteMany();
+        await prisma.country.deleteMany();
 
-        prisma.productImage.deleteMany(),
-        prisma.product.deleteMany(),
-        prisma.category.deleteMany(),
-    ]);
+        await prisma.productImage.deleteMany();
+        await prisma.product.deleteMany();
+        await prisma.category.deleteMany();
+    // ]);
 
     // 2. Categorías
     const { categories, products, users } = initialData;
@@ -35,9 +35,7 @@ async function main(){
     // {
     //  name: 'Shirts',
     // }
-    const categoriesData = categories.map( category => ({
-        name: category
-    }))
+    const categoriesData = categories.map( (name) => ({ name }));
     await prisma.category.createMany({
         data: categoriesData
     });
@@ -50,7 +48,7 @@ async function main(){
     }, {} as Record<string, string>); // <string=shirt, string=categoryID>
 
     // Productos
-    const { images, ...product1 } = products[0];
+    // const { images, ...product1 } = products[0];
     // await prisma.product.create({
     //     data: {
     //         ...product1,

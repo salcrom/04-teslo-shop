@@ -17,9 +17,7 @@ export const getUserAddress = async( userId: string ) => {
             ...rest,
             country: countryId,
             address2: address2 ? address2 : '',
-            city: 'Hola Mundo'
         };
-        
     } catch (error) {
         console.log(error);
         return null;
