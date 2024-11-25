@@ -133,6 +133,8 @@ model Order {
   // Relaciones
   OrderItem    OrderItem[]
   OrderAddress OrderAddress?
+
+  transactionId String?
 }
 
 model OrderItem {
@@ -166,3 +168,5 @@ model OrderAddress {
   Order   Order  @relation(fields: [orderId], references: [id])
   orderId String @unique
 }
+
+// Order de compras
