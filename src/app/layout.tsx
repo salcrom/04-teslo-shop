@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { geistMono, geistSans, inter } from "@/config/fonts";
 import "./globals.css";
-import { Provider } from "@/components";
+import { Providers } from "@/components";
 
 
 export const metadata: Metadata = {
@@ -21,7 +21,9 @@ export default function RootLayout({ children,}:{
       <body
         className={`${inter.className} ${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider>{children}</Provider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );
