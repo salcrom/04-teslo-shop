@@ -1,3 +1,5 @@
+import { number, string } from "zod";
+
 export interface Product {
     id: string;
     description: string;
@@ -20,6 +22,12 @@ export interface CartProduct {
     quantity: number;
     size: Size;
     image: string;
+}
+
+export interface ProductImage {
+    id: number;
+    url: string;
+    productId?: string;
 }
 
 export type Category = "men" | "women" | "kid" | "unisex";

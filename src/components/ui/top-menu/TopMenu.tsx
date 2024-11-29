@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Link from "next/link"
-import { IoSearchOutline, IoCartOutline } from "react-icons/io5"
+import Link from "next/link";
+import { IoSearchOutline, IoCartOutline } from "react-icons/io5";
 
-import { titleFont } from "@/config/fonts"
-import { useCartStore, useUIStore } from "@/store"
+import { titleFont } from "@/config/fonts";
+import { useCartStore, useUIStore } from "@/store";
 
 
 export const TopMenu = () => {
@@ -16,7 +16,7 @@ export const TopMenu = () => {
     const [loaded, setLoaded] = useState(false);
 
     useEffect(() => {
-      setLoaded(true);
+        setLoaded(true);
     }, [])
     
 

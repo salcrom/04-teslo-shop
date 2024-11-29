@@ -1,11 +1,17 @@
 // Página para mostrar un producto
 export const revalidate = 604800; // 7 días
-
 import { Metadata, ResolvingMetadata } from "next";
+
 import { notFound } from "next/navigation";
 
-import { ProductMobileSlideshow, ProductSlideshow, QuantitySelector, SizeSelector, StockLabel } from "@/components";
 import { titleFont } from "@/config/fonts";
+import {
+  ProductMobileSlideshow,
+  ProductSlideshow,
+  QuantitySelector,
+  SizeSelector,
+  StockLabel,
+} from "@/components";
 import { getProductBySlug } from "@/actions";
 import { AddToCart } from "./ui/AddToCart";
 
@@ -13,7 +19,7 @@ import { AddToCart } from "./ui/AddToCart";
 interface Props {
   params: {
     slug: string;
-  }
+  };
 }
 
 export async function generateMetadata(
@@ -38,7 +44,7 @@ export async function generateMetadata(
       // images: [], // https://misitiosweb.com/products/prod-1/image.png
       images: [ `/products/${ product?.images[1] }` ],
     },
-  }
+  };
 }
 
 
