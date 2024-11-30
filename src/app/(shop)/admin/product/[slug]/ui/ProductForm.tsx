@@ -1,16 +1,15 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { ProducCategory, Product, ProductImage as ProductWithImage } from "@/interfaces";
-import Image from "next/image";
+import { Category, Product, ProductImage as ProductWithImage } from "@/interfaces";
 import clsx from "clsx";
 import { createUpdateProduct, deleteProductImage } from "@/actions";
 import { useRouter } from "next/navigation";
 import { ProductImage } from "@/components";
 
 interface Props {
-    product: Partial<Product> & { ProductImage?: ProductWithImage[]};
-    categories: ProducCategory[];
+    product: Partial<Product> & { ProductImage?: ProductWithImage[] };
+    categories: Category[];
 
 }
 
@@ -24,10 +23,9 @@ interface FormInputs {
     inStock: number;
     sizes: string[];
     tags: string;
-    gender: 'men'|'women'|'kid'|'unisex';
+    gender: 'men' | 'women' | 'kid' | 'unisex';
     categoryId: string;
 
-    // todo: Images
     images?: FileList;
 }
 
@@ -48,25 +46,24 @@ export const ProductForm = ({ product, categories }: Props) => {
             tags: product.tags?.join(','),
             sizes: product.sizes ?? [],
 
-            // Todo: images
             images: undefined,
         }
     });
 
     watch('sizes');
 
-    const onSizeChanged = ( size: string ) => {
+    const onSizeChanged = (size: string) => {
         const sizes = new Set(getValues('sizes'));
-        sizes.has( size ) ? sizes.delete(size) : sizes.add(size);
-        setValue( 'sizes', Array.from( sizes ));
+        sizes.has(size) ? sizes.delete(size) : sizes.add(size);
+        setValue('sizes', Array.from(sizes));
     }
 
-    const onSubmit = async( data:FormInputs ) => {
+    const onSubmit = async (data: FormInputs) => {
         const formData = new FormData();
 
         const { images, ...productToSave } = data;
 
-        if ( product.id ){
+        if (product.id) {
             formData.append('id', product.id ?? '');
         }
         formData.append('title', productToSave.title);
@@ -79,25 +76,28 @@ export const ProductForm = ({ product, categories }: Props) => {
         formData.append('categoryId', productToSave.categoryId);
         formData.append('gender', productToSave.gender);
 
-        console.log(images);
-        if ( images ) {
-            for ( let i = 0; i < images.length; i++ ){
+        // console.log(images);
+        if (images) {
+            for (let i = 0; i < images.length; i++) {
                 formData.append('images', images[i]);
             }
         }
 
-        const { ok, product:updatedProduct } = await createUpdateProduct( formData );
-        
-        if ( !ok ){
+        const { ok, product: updatedProduct } = await createUpdateProduct(formData);
+
+        if (!ok) {
             alert('Producto no se pudo actualizar')
             return;
         }
 
-        router.replace(`/admin/product/${ updatedProduct?.slug }`)
+        router.replace(`/admin/product/${updatedProduct?.slug}`)
     }
 
     return (
-        <form onSubmit={ handleSubmit(onSubmit) } className="grid px-5 mb-16 grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3">
+        <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="grid px-5 mb-16 grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3"
+        >
             {/* Textos */}
             <div className="w-full">
                 <div className="flex flex-col mb-2">
@@ -105,7 +105,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <input
                         type="text"
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('title', { required: true }) }
+                        {...register('title', { required: true })}
                     />
                 </div>
 
@@ -114,7 +114,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <input
                         type="text"
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('slug', { required: true }) }
+                        {...register('slug', { required: true })}
                     />
                 </div>
 
@@ -123,7 +123,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <textarea
                         rows={5}
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('description', { required: true }) }
+                        {...register('description', { required: true })}
                     ></textarea>
                 </div>
 
@@ -132,7 +132,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <input
                         type="number"
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('price', { required: true, min: 0 }) }
+                        {...register('price', { required: true, min: 0 })}
                     />
                 </div>
 
@@ -141,13 +141,16 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <input
                         type="text"
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('tags', { required: true }) }
+                        {...register('tags', { required: true })}
                     />
                 </div>
 
                 <div className="flex flex-col mb-2">
                     <span>Gender</span>
-                    <select className="p-2 border rounded-md bg-gray-200" { ...register('gender', { required: true }) }>
+                    <select
+                        className="p-2 border rounded-md bg-gray-200"
+                        {...register('gender', { required: true })}
+                    >
                         <option value="">[Seleccione]</option>
                         <option value="men">Men</option>
                         <option value="women">Women</option>
@@ -158,13 +161,16 @@ export const ProductForm = ({ product, categories }: Props) => {
 
                 <div className="flex flex-col mb-2">
                     <span>Categoria</span>
-                    <select className="p-2 border rounded-md bg-gray-200" { ...register('categoryId', { required: true }) }>
+                    <select
+                        className="p-2 border rounded-md bg-gray-200"
+                        {...register('categoryId', { required: true })}
+                    >
                         <option value="">[Seleccione]</option>
-                        {
-                            categories.map( category => (
-                                <option key={ category.id } value={ category.id }>{ category.name }</option>
-                            ))
-                        }
+                        {categories.map(category => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
                     </select>
                 </div>
 
@@ -178,7 +184,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     <input
                         type="number"
                         className="p-2 border rounded-md bg-gray-200"
-                        { ...register('inStock', { required: true, min: 0 }) }
+                        {...register('inStock', { required: true, min: 0 })}
                     />
                 </div>
                 {/* As checkboxes */}
@@ -189,7 +195,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                             // bg-blue-500 text-white <--- si está seleccionado
                             <div
                                 key={size}
-                                onClick={ () => onSizeChanged(size) }
+                                onClick={() => onSizeChanged(size)}
                                 className={
                                     clsx(
                                         "p-2 border cursor-pointer rounded-md mr-2 mb-2 w-14 transition-all text-center",
@@ -208,7 +214,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                         <span>Fotos</span>
                         <input
                             type="file"
-                            { ...register('images' )}
+                            {...register('images')}
                             multiple
                             className="p-2 border rounded-md bg-gray-200"
                             accept="image/png, image/jpeg, image/avif"
@@ -216,26 +222,23 @@ export const ProductForm = ({ product, categories }: Props) => {
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                        {
-                            product.ProductImage?.map( image => (
-                                <div key={ image.id }>
-                                    <ProductImage
-                                        alt={ product.title ?? '' }
-                                        src={ image.url }
-                                        width={ 300 }
-                                        height={ 300 }
-                                        className="rounded-t shadow-md"
-                                    />
-                                    <button
-                                        type="button"
-                                        onClick={ () => deleteProductImage( image.id, image.url ) }
-                                        className="btn-danger w-full rounded-b-xl">
-                                        Eliminar
-                                    </button>
-                                </div>
-                            ))
-                        }
-
+                        {product.ProductImage?.map((image) => (
+                            <div key={image.id}>
+                                <ProductImage
+                                    alt={product.title ?? ''}
+                                    src={image.url}
+                                    width={300}
+                                    height={300}
+                                    className="rounded-t shadow-md"
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => deleteProductImage(image.id, image.url)}
+                                    className="btn-danger w-full rounded-b-xl">
+                                    Eliminar
+                                </button>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </div>

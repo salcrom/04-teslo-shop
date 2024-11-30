@@ -12,7 +12,7 @@ export const getStockBySlug = async( slug: string ):Promise<number> => {
         const stock = await prisma.product.findFirst({
             where: { slug },
             select: { inStock: true }
-        })
+        });
 
         return stock?.inStock ?? 0;
 

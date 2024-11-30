@@ -51,7 +51,7 @@ export const RegisterForm = () => {
                     clsx(
                         "px-5 py-2 border bg-gray-200 rounded mb-5",
                         {
-                            'border-red-500': !!errors.name
+                            'border-red-500': errors.name
                         }
                     )}
                 type="text"
@@ -65,7 +65,7 @@ export const RegisterForm = () => {
                     clsx(
                         "px-5 py-2 border bg-gray-200 rounded mb-5",
                         {
-                            'border-red-500': !!errors.email
+                            'border-red-500': errors.email
                         }
                     )}
                 type="email"
@@ -78,7 +78,7 @@ export const RegisterForm = () => {
                     clsx(
                         "px-5 py-2 border bg-gray-200 rounded mb-5",
                         {
-                            'border-red-500': !!errors.password
+                            'border-red-500': errors.password
                         }
                     )}
                 type="password"

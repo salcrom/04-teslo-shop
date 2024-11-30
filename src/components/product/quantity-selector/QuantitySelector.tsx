@@ -18,7 +18,7 @@ export const QuantitySelector = ({ quantity, onQuantityChanged }: Props) => {
         // TODO: cantidad máxima -> if ( count + value > stock ) return;
 
         onQuantityChanged( quantity + value );
-    }
+    };
 
     return (
         <div className="flex">

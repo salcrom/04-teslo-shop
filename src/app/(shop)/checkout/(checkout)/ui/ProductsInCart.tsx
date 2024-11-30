@@ -47,5 +47,5 @@ export const ProductsInCart = () => {
                 </div>
             ))}
         </>
-    )
-}
+    );
+};

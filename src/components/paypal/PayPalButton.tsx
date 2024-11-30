@@ -42,7 +42,7 @@ export const PayPalButton = ({ orderId, amount }:Props) => {
         const { ok } = await setTransactionId( orderId, transactionId );
 
         if ( !ok ) {
-            throw new Error('No se pudo actualizarla order');
+            throw new Error('No se pudo actualizar la order');
         }
 
         return transactionId;
@@ -57,9 +57,11 @@ export const PayPalButton = ({ orderId, amount }:Props) => {
     }
 
     return (
-        <PayPalButtons
-            createOrder={ createOrder }
-            onApprove={ onApprove }
-        />
+        <div className="relative z-0">
+            <PayPalButtons
+                createOrder={ createOrder }
+                onApprove={ onApprove }
+            />
+        </div>
     )
 }

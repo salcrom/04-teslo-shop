@@ -1,5 +1,5 @@
 import { titleFont } from '@/config/fonts';
-import Link from 'next/link';
+// import Link from 'next/link';
 import { RegisterForm } from './ui/RegisterForm';
 
 

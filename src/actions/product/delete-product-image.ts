@@ -1,8 +1,7 @@
 'use server';
 
-import {v2 as cloudinary} from 'cloudinary';
-import { ProductImage } from '../../components/product/product-image/ProductImage';
 import prisma from '@/lib/prisma';
+import {v2 as cloudinary} from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 cloudinary.config( process.env.CLOUDINARY_URL ?? '');
 
@@ -40,7 +39,6 @@ export const deleteProductImage = async( imageId: number, imageUrl: string ) => 
         revalidatePath(`/admin/product/${ deletedImage.product.slug }`);
         revalidatePath(`/product/${ deletedImage.product.slug }`);
 
-
     } catch (error) {
         console.log(error);
         return {
@@ -48,5 +46,4 @@ export const deleteProductImage = async( imageId: number, imageUrl: string ) => 
             message: 'No se pudo eliminar la imagen'
         }
     }
-
 }

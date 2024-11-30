@@ -101,15 +101,13 @@ export default async function OrdersByIdPage({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
-              {
-                order?.isPaid
-                  ? (
-                    <OrderStatus isPaid={order?.isPaid ?? false} />
-                  )
-                  : (
-                    <PayPalButton amount={order!.total} orderId={order!.id} />
-                  )
-              }
+              {order?.isPaid
+                ? (
+                  <OrderStatus isPaid={order?.isPaid ?? false} />
+                )
+                : (
+                  <PayPalButton amount={order!.total} orderId={order!.id} />
+                )}
             </div>
           </div>
         </div>

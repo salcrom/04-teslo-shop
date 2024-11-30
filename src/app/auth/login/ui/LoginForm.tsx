@@ -7,7 +7,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import { authenticate } from "@/actions";
 import { IoInformationOutline } from "react-icons/io5";
 import clsx from 'clsx';
-import { useSearchParams } from "next/navigation";
+// import { useSearchParams } from "next/navigation";
 // import { useRouter } from "next/navigation";
 
 
@@ -16,21 +16,22 @@ import { useSearchParams } from "next/navigation";
 export const LoginForm = () => {
     // const router = useRouter();
     const [state, dispatch] = useFormState(authenticate, undefined);
-    const params = useSearchParams();
+    // const params = useSearchParams();
 
     console.log(state);
 
     useEffect(() => {
-        const urlParam = params.get('callbackUrl')?.toString()
+        // const urlParam = params.get('callbackUrl')?.toString()
 
         if ( state === 'Success' ){
-            if(urlParam === undefined){
-                window.location.replace('/')
-            } else {
-                window.location.replace(`${urlParam}`)
-            }
+            window.location.replace('/')
+            // if(urlParam === undefined){
+            //     window.location.replace('/')
+            // } else {
+            //     window.location.replace(`${urlParam}`)
+            // }
         }
-    }, [params,state])
+    }, [state])
 
 
     return (

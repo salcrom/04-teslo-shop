@@ -19,8 +19,8 @@ export const getPaginatedProductsWithImages = async({
     if ( isNaN( Number(page)) ) page = 1;
     if ( page < 1 ) page = 1;
     
-    if ( isNaN( Number(take)) ) take = 1;
-    if ( take < 12 ) take = 12;
+    // if ( isNaN( Number(take)) ) take = 1;
+    // if ( take < 12 ) take = 12;
 
     try {
         //  1. Obtener los productos
@@ -35,13 +35,13 @@ export const getPaginatedProductsWithImages = async({
                     }
                 }
             },
+            // ! Por género
             where: {
                 gender: gender
             }
         })
 
         // 2. Obtener el total de páginas
-        // todo por género
         const totalCount = await prisma.product.count({
             where: {
                 gender: gender
@@ -49,15 +49,14 @@ export const getPaginatedProductsWithImages = async({
         });
         const totalPages = Math.ceil( totalCount / take );
 
-
         return {
             currentPage: page,
             totalPages: totalPages,
-            products: products.map(product =>({
+            products: products.map((product) =>({
                 ...product,
                 images: product.ProductImage.map( (image) => image.url )
-            }))
-        }
+            })),
+        };
     } catch (error) {
         throw new Error('No se pudo cargar los productos');
     }

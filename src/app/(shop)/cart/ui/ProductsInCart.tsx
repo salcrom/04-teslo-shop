@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image";
 
 import { useCartStore } from "@/store";
 import { ProductImage, QuantitySelector } from "@/components";
@@ -16,17 +16,13 @@ export const ProductsInCart = () => {
     const [loaded, setLoaded] = useState(false);
     const productsInCart = useCartStore( state => state.cart );
 
-    
-
     useEffect(() => {
-      setLoaded(true);
+        setLoaded(true);
     }, [])
-    
 
     if ( !loaded ){
         return <p>Loading...</p>
     }
-
 
     return (
         <>
@@ -50,6 +46,7 @@ export const ProductsInCart = () => {
                             href={ `/product/${ product.slug }` }>
                             { product.size } - { product.title }
                         </Link>
+
                         <p>${product.price}</p>
 
                         <QuantitySelector
@@ -59,7 +56,8 @@ export const ProductsInCart = () => {
 
                         <button
                             onClick={ () => removeProduct(product) }
-                            className="underline mt-3">
+                            className="underline mt-3"
+                        >
                             remover
                         </button>
                     </div>

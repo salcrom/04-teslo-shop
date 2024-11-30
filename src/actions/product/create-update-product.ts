@@ -1,8 +1,8 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { Gender, Product, Size } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
+import { Gender, Product, Size } from '@prisma/client';
 import { z } from 'zod';
 import {v2 as cloudinary} from 'cloudinary';
 cloudinary.config( process.env.CLOUDINARY_URL ?? '');
@@ -117,16 +117,6 @@ export const createUpdateProduct = async( formData: FormData ) => {
             message: 'Revisar los logs, no se pudo actualizar/crear'
         }
     }
-
-
-    // Todo: RevalidatePaths
-    revalidatePath('/admin/products');
-    revalidatePath(`/admin/product/${ product.slug }`);
-    revalidatePath(`/products/${ product.slug }`);
-
-    return {
-        ok: true
-    }
 }
 
 
@@ -145,8 +135,8 @@ const uploadImages = async( images: File[] ) => {
             }
         })
 
-        const uploadImages = await Promise.all( uploadPromises );
-        return uploadImages;
+        const uploadedImages = await Promise.all( uploadPromises );
+        return uploadedImages;
 
     } catch (error) {
         console.log(error);

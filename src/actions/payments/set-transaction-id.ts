@@ -25,8 +25,4 @@ export const setTransactionId = async( orderId: string, transactionId: string ) 
             message: 'No se pudo actualizar el id de la transacción'
         }
     }
-
-    return {
-        ok: true,
-    }
 }

@@ -2,7 +2,7 @@
 
 // Página para mostrar el carrito de compras
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 
 import { Title } from "@/components";
 import { ProductsInCart } from "./ui/ProductsInCart";

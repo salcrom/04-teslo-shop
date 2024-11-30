@@ -71,7 +71,7 @@ export const useCartStore = create<State>()(
                     if (item.id === product.id && item.size === product.size) {
                         return {
                             ...item,
-                            quantity: item.quantity + product.quantity,
+                            quantity: item.quantity + product.quantity
                         };
                     }
 

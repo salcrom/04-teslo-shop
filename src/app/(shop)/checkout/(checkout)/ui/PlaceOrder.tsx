@@ -58,7 +58,9 @@ export const PlaceOrder = () => {
         <div className="bg-white rounded-xl shadow-xl p-7">
             <h2 className="text-2xl mb-2">Dirección de entrega</h2>
             <div className="mb-10">
-                <p className="text-xl">{address.firstName} {address.lastName}</p>
+                <p className="text-xl">
+                    {address.firstName} {address.lastName}
+                </p>
                 <p>{address.address}</p>
                 <p>{address.address2}</p>
                 <p>{address.postalCode}</p>
@@ -93,7 +95,14 @@ export const PlaceOrder = () => {
                 <p className="mb-5">
                     {/* Disclaimer */}
                     <span className="text-xs">
-                        Al hacer clic en &quot;Colocar orden&quot;, aceptas nuestros <a href="#" className="underline">términos y condiciones</a> y <a href="#" className="underline">política de privacidad</a>
+                        Al hacer clic en &quot;Colocar orden&quot;, aceptas nuestros{" "}
+                        <a href="#" className="underline">
+                            términos y condiciones
+                        </a>{" "}
+                        y{" "}
+                        <a href="#" className="underline">
+                            política de privacidad
+                        </a>
                     </span>
                 </p>
 

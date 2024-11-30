@@ -23,7 +23,7 @@ export const ProductImage = ( {
         ? src.startsWith('http') // https://urlcompletodelaimagen
             ? src
             : `/products/${ src }`
-        : '/imgs/placeholder.png';
+        : '/imgs/placeholder.jpg';
 
     return (
         <Image

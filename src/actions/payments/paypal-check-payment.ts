@@ -6,7 +6,6 @@ import { revalidatePath } from "next/cache";
 
 export const paypalCheckPayment = async (paypalTransactionId: string) => {
     const authToken = await getPayPalBearerToken();
-    console.log({ authToken });
 
     if (!authToken) {
         return {
@@ -35,7 +34,7 @@ export const paypalCheckPayment = async (paypalTransactionId: string) => {
 
     // TODO Realizar la actualziación en nuestra base de datos
     try {
-        console.log({status, purchase_units});
+        // console.log({status, purchase_units});
 
         await prisma.order.update({
             where: { id: orderId },
@@ -72,9 +71,9 @@ const getPayPalBearerToken = async (): Promise<string | null> => {
     ).toString("base64");
 
     const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     myHeaders.append("Authorization", `Basic ${base64Token}`);
 
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
     const urlencoded = new URLSearchParams();
     urlencoded.append("grant_type", "client_credentials");
@@ -86,9 +85,10 @@ const getPayPalBearerToken = async (): Promise<string | null> => {
     };
 
     try {
-        const result = await fetch(oauth2Url, requestOptions).then((r) =>
-            r.json()
-        );
+        const result = await fetch(oauth2Url, {
+            ...requestOptions,
+            cache: 'no-store'
+        }).then((r) => r.json());
         return result.access_token;
     } catch (error) {
         console.log(error);
@@ -115,7 +115,10 @@ const verifyPayPalPayment = async (
 
     try {
 
-        const resp = await fetch( paypalOrderUrl, requestOptions ).then( r => r.json() );
+        const resp = await fetch( paypalOrderUrl, {
+            ...requestOptions,
+            cache: 'no-store'
+        }).then( r => r.json() );
         return resp;
 
     } catch (error) {

@@ -1,7 +1,7 @@
 
 
 
-export interface ProducCategory {
+export interface Category {
     id: string;
     name: string;
 }

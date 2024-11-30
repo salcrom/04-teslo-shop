@@ -34,7 +34,7 @@ export const AddressForm = ({countries, userStoredAddress = {} }:Props) => {
     const router = useRouter();
     const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
         defaultValues: {
-            ...userStoredAddress as any,
+            ...(userStoredAddress as any),
             rememberAddress: false,
         }
     });
@@ -60,15 +60,12 @@ export const AddressForm = ({countries, userStoredAddress = {} }:Props) => {
 
         if ( rememberAddress ){
             await setUserAddress(restAddress, session!.user.id )
-
         } else {
             await deleteUserAddress( session!.user.id )
         }
 
         router.push('/checkout');
-
     }
-
 
     return (
         <form
@@ -193,5 +190,5 @@ export const AddressForm = ({countries, userStoredAddress = {} }:Props) => {
                 </button>
             </div>
         </form>
-    )
-}
+    );
+};
