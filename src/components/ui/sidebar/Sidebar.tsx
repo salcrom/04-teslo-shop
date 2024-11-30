@@ -14,11 +14,11 @@ export const Sidebar = () => {
     const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
     const closeMenu = useUIStore(state => state.closeSideMenu);
 
-    // const refresh = () => {
-    //     window.location.replace('/');
-    //     closeMenu();
-    //     logout();
-    // }
+    const refresh = () => {
+        window.location.replace('/');
+        closeMenu();
+        logout();
+    }
 
     const { data: session } = useSession();
     const isAuthenticated = !!session?.user;
@@ -99,7 +99,7 @@ export const Sidebar = () => {
                 {isAuthenticated && (
                     <button
                         className="flex w-full items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-                        onClick={() => logout()}
+                        onClick={() => refresh()}
                     >
                         <IoLogOutOutline size={30} />
                         <span className="ml-3 text-xl">Salir</span>
